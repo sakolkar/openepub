@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[project]
+name = "openepub"
+authors = [
+  { name="Satyen Akolkar", email="contact@satyen.dev" },
+]
+description = "Library to interact with EPUB files."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: The Unlicense (Unlicense)",
+    "Operating System :: OS Independent",
+]
+dynamic = ["version"]
+dependencies = [
+  "xmltodict>=0.13.0,<1",
+  "beautifulsoup4>=4.12.2,<5",
+]
+
+
+[project.urls]
+Home = "https://github.com/sakolkar/openepub"
+Documentation = "https://github.com/sakolkar/openepub/wiki"
+Issues = "https://github.com/sakolkar/openepub/issues"
+
+
+[tool.hatch.version]
+path = "src/openepub/__init__.py"
