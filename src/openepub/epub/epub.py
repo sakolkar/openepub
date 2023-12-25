@@ -9,20 +9,35 @@ from openepub.common import aslist
 
 
 class Epub:
-    def __init__(self, path=None):
-        if not isinstance(path, (str, bytes, os.PathLike)):
-            raise TypeError("path argument must be path-like.")
-        if not os.path.exists(path):
-            raise oe.InvalidFileError("Specified path does not exist.")
-        if not zipfile.is_zipfile(path):
-            raise oe.InvalidFileError("File at specified path is not an EPUB.")
+    def __init__(self, path=None, stream=None):
+        if path is None and stream is None or path is not None and stream is not None:
+            raise ValueError("One of path or stream must be specified.")
 
-        self.zip = zipfile.ZipFile(path, mode="r")
+        if path is None:
+            pass
+        elif isinstance(path, (str, bytes, os.PathLike)):
+            if not os.path.exists(path):
+                raise oe.InvalidFileError("Specified path does not exist.")
+            path_or_stream = path
+        else:
+            raise TypeError("path argument must be path-like.")
+
+        if stream is None:
+            pass
+        elif hasattr(stream, "read"):
+            path_or_stream = stream
+        else:
+            raise TypeError("stream argument must be file-like.")
+
+        if not zipfile.is_zipfile(path_or_stream):
+            raise oe.InvalidFileError("File specified is not an EPUB.")
+
+        self.zip = zipfile.ZipFile(path_or_stream, mode="r")
         self.root = zipfile.Path(self.zip)
 
         self.package_paths = self._read_package_paths()
         if not self.package_paths:
-            raise oe.InvalidFileError("File at specified path is not an EPUB.")
+            raise oe.InvalidFileError("File specified is not an EPUB.")
 
     def _read_package_paths(self) -> list:
         package_paths = []

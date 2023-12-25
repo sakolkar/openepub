@@ -1,3 +1,4 @@
+from tempfile import TemporaryFile
 from unittest import TestCase
 
 from openepub import Epub, InvalidFileError
@@ -37,3 +38,10 @@ class EpubTestCase(TestCase):
         stripped = text.strip()
         self.assertTrue(stripped.startswith("Harry Potter and the Philosopher's Stone"))
         self.assertTrue(stripped.endswith("fun with Dudley this summer …’"))
+
+    def test_open_epub_from_stream(self):
+        stream = TemporaryFile()
+        with open("test/mock/tödliche_lektion.epub", "rb") as f:
+            stream.write(f.read())
+        epub_1 = Epub(stream=stream)
+        self.assertIsInstance(epub_1, Epub)
