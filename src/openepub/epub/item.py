@@ -23,6 +23,9 @@ class EpubXHTMLItem(EpubItem):
     def get_text(self):
         for br in self.soup.find_all("br"):
             br.replace_with("\n")
+        for tag in self.soup.find_all(["h1", "h2", "h3", "h4", "h5", "h6", "p"]):
+            if tag.previous_sibling != "\n":
+                tag.insert_before("\n")
         if self.soup.find("head") and self.soup.find("body"):
             return self.soup.find("body").get_text()
         return self.soup.get_text()
