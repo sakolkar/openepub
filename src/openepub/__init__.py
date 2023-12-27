@@ -1,10 +1,10 @@
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 
 from .epub.epub import Epub
 from .epub.item import EpubItem, EpubXHTMLItem
 from .epub.package import EpubPackage
-from .exceptions import EpubError, InvalidFileError, MalformedPackage
+from .exceptions import EpubError, InvalidFileError, MalformedPackage, DRMProtected
 
 
 __all__ = [

@@ -17,7 +17,10 @@ class EpubItem:
 class EpubXHTMLItem(EpubItem):
     def __init__(self, package: "oe.EpubPackage", path: zipfile.Path, id: str):
         super().__init__(package, path, id)
-        self.content = self.path.read_text()
+        try:
+            self.content = self.path.read_text()
+        except UnicodeDecodeError:
+            raise oe.DRMProtected("This content is protected by DRM.") from None
         self.soup = bs4.BeautifulSoup(self.content, "html.parser")
 
     def get_text(self):

@@ -16,3 +16,11 @@ class InvalidFileError(EpubError):
 
 class MalformedPackage(EpubError):
     pass
+
+
+class DRMProtected(EpubError):
+    """
+    Indicates the EPUB content is protected by Digital Rights Management.
+    """
+
+    pass
