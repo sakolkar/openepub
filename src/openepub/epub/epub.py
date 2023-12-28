@@ -69,4 +69,4 @@ class Epub:
         for package in self.iterpackages():
             for item in package.iterspine():
                 texts.append(item.get_text())
-        return "\n".join(texts)
+        return "\n".join(texts).strip()
