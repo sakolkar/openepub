@@ -42,9 +42,8 @@ class Epub:
     def _read_package_paths(self) -> list:
         package_paths = []
         try:
-            container = xmltodict.parse(
-                (self.root / "META-INF" / "container.xml").read_text()
-            )
+            content_bytes = (self.root / "META-INF" / "container.xml").read_bytes()
+            container = xmltodict.parse(content_bytes.decode("utf-8", "ignore"))
             for rootfile in aslist(container["container"]["rootfiles"]["rootfile"]):
                 path = self.root.joinpath(rootfile["@full-path"])
                 if not path.exists():

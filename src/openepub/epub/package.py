@@ -18,7 +18,8 @@ class EpubPackage:
 
     def _read_package(self) -> dict:
         try:
-            package = xmltodict.parse(self.path.read_text())
+            content_bytes = self.path.read_bytes()
+            package = xmltodict.parse(content_bytes.decode("utf-8", "ignore"))
             return package["package"]
         except (xml_expat.ExpatError, FileNotFoundError, KeyError, TypeError):
             pass
