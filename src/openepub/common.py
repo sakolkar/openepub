@@ -26,17 +26,17 @@ def is_block_tag(tag_name):
     ]
 
 
-def collect_text(soup):
+def collect_text(soup, within_block=False):
     text = ""
     if isinstance(soup, NavigableString):
         text = soup.text
         text = re.sub(r"\s+", r" ", text)
     elif hasattr(soup, "children"):
         for child in soup.children:
-            child_text = collect_text(child)
             if is_block_tag(child.name):
-                text += child_text + "\n\n"
+                text += collect_text(child, within_block=True) + "\n\n"
             else:
-                text += child_text
-        text = "\n".join(line.strip() for line in text.splitlines())
+                text += collect_text(child, within_block)
+        if not within_block:
+            text = "\n".join(line.strip() for line in text.splitlines())
     return text

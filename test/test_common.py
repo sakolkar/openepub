@@ -11,10 +11,9 @@ class CollectTextTestCase(TestCase):
         source = (
             """<p class="Clanek1"><span lang="CS">Odpovědi na tyto a mnohé """
             """další otázky hledá v novém senzačním životopise nazvaném </s"""
-            """pan><span lang="CS" class="calibre8">Život a lži Albuse Brum"""
-            """bála</span><span lang="CS"> Rita Holoubková. Exkluzivní rozh"""
-            """ovor s ní přináší Betty Braithwaiteová na straně 13.</span><"""
-            """/p>"""
+            """pan><span lang="CS">Život a lži Albuse Brumbála</span><span """
+            """lang="CS"> Rita Holoubková. Exkluzivní rozhovor s ní přináší"""
+            """ Betty Braithwaiteová na straně 13.</span></p>"""
         )
 
         expected = (
