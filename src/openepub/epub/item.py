@@ -25,7 +25,11 @@ class EpubXHTMLItem(EpubItem):
                 xmltodict.parse(self.content_bytes.decode("utf-8", "ignore"))
             except xml_expat.ExpatError:
                 raise oe.DRMProtected("This content is protected by DRM.") from None
-        self.soup = bs4.BeautifulSoup(self.content_bytes, "html.parser")
+        self.soup = bs4.BeautifulSoup(
+            self.content_bytes,
+            "html.parser",
+            from_encoding="utf-8",
+        )
 
     def get_text(self):
         if self.soup.find("head") and self.soup.find("body"):

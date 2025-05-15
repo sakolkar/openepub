@@ -22,6 +22,11 @@ dependencies = [
   "beautifulsoup4>=4.12.2,<5",
 ]
 
+[project.optional-dependencies]
+test = [
+  "chardet",
+]
+
 
 [project.urls]
 Home = "https://github.com/sakolkar/openepub"
